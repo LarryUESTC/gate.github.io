@@ -1,0 +1,9 @@
+@ARTICLE{peng2022gate,
+  author={Peng, Liang and Wang, Nan and Xu, Jie and Zhu, Xiaofeng and Li, Xiaoxiao},
+  journal={IEEE Transactions on Medical Imaging},
+  title={GATE: <bold>G</bold>raph CC<bold>A</bold> for <bold>T</bold>emporal S<bold>E</bold>lf-supervised Learning for Label-efficient fMRI Analysis},
+  year={2022},
+  volume={},
+  number={},
+  pages={1-1},
+  doi={10.1109/TMI.2022.3201974}}

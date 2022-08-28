@@ -1,1 +1,158 @@
-hello 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="GATE: Graph CCA for Temporal SElf-supervised Learning for Label-efficient fMRI Analysis">
+    <meta name="author" content="Liang Peng,
+                                 Nan Wang,
+                                 Jie Xu,
+                                 Xiaofeng Zhu,
+                                 Xiaoxiao Li">
+
+    <title>GATE: Graph CCA for Temporal SElf-supervised Learning for Label-efficient fMRI Analysis</title>
+    <!-- Bootstrap core CSS -->
+    <!--link href="bootstrap.min.css" rel="stylesheet"-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="offcanvas.css" rel="stylesheet">
+    <!--    <link rel="icon" href="img/favicon.gif" type="image/gif">-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js">
+    </script>
+</head>
+
+<body>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container"></div>
+    <h2>GATE: Graph CCA for Temporal SElf-supervised <br> Learning for Label-efficient fMRI Analysis </h2>
+    <h4> (IEEE Transactions on Medical Imaging 2022) </h4>
+<!--            <p class="abstract">An interpretable, data-efficient, and scalable neural scene representation.</p>-->
+    <hr>
+    <p class="authors">
+        <a href="https://scholar.google.com/citations?user=GuKZfakAAAAJ"> Liang Peng</a>,
+        Nan Wang,
+        <a href="https://scholar.google.com/citations?hl=zh-CN&user=YT1_9swAAAAJ/"> Jie Xu</a>,
+        <a href="https://scholar.google.com/citations?user=-bk1CrcAAAAJ"> Xiaofeng Zhu</a>, and
+        <a href="https://xxlya.github.io/xiaoxiao/"> Xiaoxiao Li</a>
+    </p>
+    <div class="btn-group" role="group" aria-label="Top menu">
+        <a class="btn btn-primary" href="https://ieeexplore.ieee.org/document/9868044">Paper</a>
+        <a class="btn btn-primary" href="https://github.com/LarryUESTC/GATE">Code</a>
+        <a class="btn btn-primary" href="citation.txt">Citation</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="section">
+
+        <center>
+        <img src="img/1.jpg" width="60%">
+        </center>
+        <hr>
+        <h2> ABSTRACTION </h2>
+        <p>
+            In this work, we focus on the challenging task, neuro-disease classification, using functional magnetic resonance imaging (fMRI).
+            In population graph-based disease analysis, graph convolutional neural networks (GCNs) have achieved remarkable success.
+            However, these achievements are inseparable from abundant labeled data and sensitive to spurious signals.
+            To improve fMRI representation learning and classification under a label-efficient setting, we propose a novel and theory-driven self-supervised learning (SSL) framework on GCNs, namely Graph CCA for Temporal sElf-supervised learning on fMRI analysis (GATE).
+            Concretely, it is demanding to design a suitable and effective SSL strategy to extract formation and robust features for fMRI. To this end, we investigate several new graph augmentation strategies from fMRI dynamic functional connectives (FC) for SSL training. Further, we leverage canonical-correlation analysis (CCA) on different temporal embeddings and present the theoretical implications.
+            Consequently, this yields a novel two-step GCN learning procedure comprised of (i) SSL on an unlabeled fMRI population graph and (ii) fine-tuning on a small labeled fMRI dataset for a classification task.
+            Our method is tested on two independent fMRI datasets,  demonstrating superior performance on autism and dementia diagnosis.
+        </p>
+    </div>
+
+<hr>
+    <div class="section">
+        <h2>INTRODUCTION</h2>
+        
+        <h4>Self-Supervised Learning (SSL) for label-efficient data</h4>
+            <center>
+            <img src='img/ssl.jpg' class='img-fluid' width="60%">
+            </center>
+            
+            <div>   
+               Modern deep learning methods depend heavily on large-scale labeled/data to get promising results.
+                Conversely, this condition is usually not satisfied in clinical practice due to the costly and complex annotation process.
+                To leverage unlabeled data and assistant representation learning on the label-efficient data (a small portion of labeled data), Self-Supervised Learning (SSL) has emerged as a powerful approach of unsupervised learning.
+
+            </div>
+     <br>
+        <h4>The suitable SSL strategy for fMRI analysis</h4>
+        <center>
+        <img src='img/suitablessl.png' class='img-fluid' width="40%">
+        </center>
+        <div>
+            Finding the suitable SSL strategy for fMRI signals is essential and existing SSL strategies can be generally divided into three categories: contrastive-based SSL, reconstruction-based SSL, and similarity-based SSL.
+            <br>
+            &bull; Contrastive-based SSL requires selecting diverse negative samples to form contrastive loss, which is difficult for disease classification using fMRI due to the limited number of samples and a small number of classes.
+            <br>
+            &bull; Reconstruction-based SSL contains an encoder-decoder structure to reconstruct input, but it is not practical as fitting the low signal-to-noise ratio fMRI features may overfit to spurious features.
+             <br>
+            &bull; Similarity-based SSL forces the similarity of multiple views of the same data (data and its augmentation) and can provide the best practical value to assist node classification on the graph with unlabeled fMRI data.
+        </div>
+<br>
+        <h4>The similarity-based SSL strategy brings two challenges on fMRI analysis</h4>
+        </center>
+        <div>
+            &bull; How to find suitable augmentations for fMRI analysis to generate different views from one BOLD signal?
+A suitable/helpful data augmentation for SSL should satisfy certain principles and reduce the correlation between the spurious features and target labels.
+ <br>
+           &bull; How to design the corresponding consistency loss for SSL training on fMRI analysis? The consistency among correlated signals should be maximized.
+        </div>
+    </div>
+
+    <hr>
+    <div class="section">
+        <h2>METHOD</h2>
+        <br>
+        <center>
+            <img src='img/framework.gif' class='img-fluid' width="100%">
+        </center>
+        <br>
+The proposed method (GATE) can tackle the spurious factors in dynamic FC analysis by developing a GCN-based CCA regularization with the designed multi-view temporal augmentation strategy on BOLD signals.
+The flowchart of the proposed method (GATE) for SSL-based dynamic FC representation learning:
+(a) Obtain BOLD signals by data preprocessing with AAL template;
+        (b) Two views $G^{a}$ and $G^{b}$ are randomly generated from the BOLD signals by our augmentation strategy (<i>S-A</i> and <i>M-A</i>);
+(c) GATE employs the GCN encoder to obtain embeddings  of these two views;
+(d) The consistency of the embeddings is regularized by optimizing CCA-based loss.
+        We also conduct a theoretical discussion to support our motivation and prove the critical implication of how GATE assists learning on label-efficient data.
+        To this end, GATE is an effective and versatile framework to solve the problem of learning on label-efficient datasets, which could bring GCN-based methods from research to clinical applications where labels are difficult to be collected.
+        <!DOCTYPE html><html><head><title>MathJax TeX Test Page</title><script type="text/x-mathjax-config">  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script><script type="text/javascript"  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></head></html>
+    </div>
+    <hr>
+
+    <div class="section">
+        <h2>EXPERIMENTS</h2>
+        <br>
+        <center>
+            <img src='img/exp1.jpg' class='img-fluid' width="72%">
+            <img src='img/exp3.jpg' class='img-fluid' width="70%">
+        </center>
+       The comprehensive comparison experiments demonstrate that GATE achieves state-of-the-art performance under the label-efficient setting.
+        We also conduct extensive ablation experiments to discuss key components of our design and algorithm.
+    </div>
+
+    <footer>
+        <p>Email: \( \texttt{larrypengliang@gmail.com}\)</a></p>
+    </footer>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
